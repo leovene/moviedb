@@ -1,23 +1,9 @@
-FROM ubuntu:latest
-LABEL author=leovene
-COPY . /var/www/app
-WORKDIR /var/www/app
-ENV DEBIAN_FRONTEND=noninteractive 
-RUN apt-get update && apt-get -y upgrade
-RUN apt-get install -y php
-RUN apt-get install -y php-fpm
-RUN apt-get install -y php-mbstring
-RUN apt-get install -y php-xml
-RUN apt-get install -y php-json
-RUN apt-get install -y php-bcmath
-RUN apt-get install -y php-ctype
-RUN apt-get install -y php-tokenizer
-RUN apt-get install -y php-mysql
-RUN apt-get install -y php-zip
-RUN apt-get -y install curl
-RUN curl -sL https://deb.nodesource.com/setup_11.x | bash -
-RUN apt-get update && apt-get install -y nodejs
-RUN npm install
-RUN npm run prod
-ENTRYPOINT ["php","artisan","serve"]
+FROM php:7
+RUN apt-get update -y && apt-get install -y openssl zip unzip git
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+RUN docker-php-ext-install pdo mbstring
+WORKDIR /app
+COPY . /app
+RUN composer install
+CMD php artisan serve --host=0.0.0.0 --port=8000
 EXPOSE 8000
