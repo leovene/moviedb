@@ -9,6 +9,8 @@ services:
         MYSQL_DATABASE: moviedb
       ports:
         - '3306:3306'
+      networks:
+        - myapp-network
     myapp:
       build:
         dockerfile: ./laravel-dockerfile

@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/movies/upcoming/{page?}', 'MoviesController@listUpcoming');
+Route::get('/movies/findupcoming/{title}/{page?}', 'MoviesController@findUpcoming');
+Route::get('/movies/toprated/{page?}', 'MoviesController@listTopRated');
+Route::get('/movies/find/{title}/{page?}', 'MoviesController@findMovie');
