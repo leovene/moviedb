@@ -7,13 +7,13 @@
                     <v-container fill-height>
                         <v-layout align-center>
                             <v-flex>
-                                <h3 class="display-3">Upcoming movies</h3>
+                                <h3 class="display-3">Top rated movies</h3>
                                 <span class="subheading">Check the upcoming movies</span>
                             </v-flex>
                         </v-layout>
                     </v-container>
                 </v-responsive>
-                <upcoming-movies :page="page"></upcoming-movies>
+                <listtoprated-movies :page="page"></listtoprated-movies>
             </v-container>
         </v-content>
         <template>
@@ -29,12 +29,12 @@
 
 
 <script>
-    import UpcomingMovies from './UpcomingMovies';
+    import ListTopRated from './ListTopRatedMovies';
     import MenuComponent from './MenuComponent';
     export default {
-        name: 'Home',
+        name: 'TopRatedMovies',
         components: {
-            'upcoming-movies': UpcomingMovies,
+            'listtoprated-movies': ListTopRated,
             'menu-component': MenuComponent
         },
         mounted() {

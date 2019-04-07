@@ -70,4 +70,22 @@ class MoviesController extends Controller
             Log::debug($ex);
         }
     }
+
+    public function getTotalPages() {
+        $client = new Client(['base_uri' => env('API_ENDPOINT', "")]);
+        try {
+            $res = $client->request('GET', "movie/upcoming", [
+                'query' => ['api_key' => env('API_KEY', ""),"page" => 1]
+            ]);
+            if ($res->getStatusCode() == 200) {
+                $content = $res->getBody()->getContents();
+                $result = json_decode($content,true);
+                $movies["data"] = array();
+                array_push($movies["data"], $result["total_pages"]);
+                return json_encode($movies);
+            }
+        } catch (HttpException $ex) {
+            Log::debug($ex);
+        }
+    }
 }

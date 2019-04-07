@@ -1,10 +1,3 @@
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
 
 window.Vue = require('vue');
@@ -24,17 +17,43 @@ Vue.use(Vuetify);
 
 import 'vuetify/dist/vuetify.min.css';
 
-// const files = require.context('./', true, /\.vue$/i);
-// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
+import App from './components/App';
 
-Vue.component('home-component', require('./components/HomeComponent.vue').default);
+import Home from './components/HomeComponent';
+import FindMovies from './components/FindMovies';
+import FindUpcoming from './components/FindUpcoming';
+import Details from './components/Details';
+import TopRatedMovies from './components/TopRatedMovies';
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+const routes = [
+    {
+        name: 'home',
+        path: '/',
+        component: Home
+    },
+    {
+        name: 'findmovies',
+        path: '/findmovies',
+        component: FindMovies
+    },
+    {
+        name: 'findupcoming',
+        path: '/findupcoming',
+        component: FindUpcoming
+    },
+    {
+        name: 'details',
+        path: '/details',
+        component: Details,
+        props: true
+    },
+    {
+        name: 'toprated',
+        path: '/toprated',
+        component: TopRatedMovies
+    }
+];
 
-const app = new Vue({
-    el: '#app'
-});
+const router = new VueRouter({ mode: 'history', routes: routes});
+
+const app = new Vue(Vue.util.extend({ router }, App)).$mount('#app');

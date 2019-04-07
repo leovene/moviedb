@@ -21,3 +21,4 @@ Route::get('/movies/upcoming/{page?}', 'MoviesController@listUpcoming');
 Route::get('/movies/findupcoming/{title}/{page?}', 'MoviesController@findUpcoming');
 Route::get('/movies/toprated/{page?}', 'MoviesController@listTopRated');
 Route::get('/movies/find/{title}/{page?}', 'MoviesController@findMovie');
+Route::get('/movies/totalpages', 'MoviesController@getTotalPages');

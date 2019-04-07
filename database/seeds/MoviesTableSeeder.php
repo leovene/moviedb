@@ -16,7 +16,8 @@ class MoviesTableSeeder extends Seeder
                 $content = $res->getBody()->getContents();
                 $result = json_decode($content,true);
                 $pages = $result["total_pages"];
-                for ($i=1;$i<=$pages;$i++) {
+                $i = 1;
+                do {
                     foreach ($result["results"] as $movie) {
                         DB::table('movies')->insert([
                             'vote_count' => $movie["vote_count"],
@@ -35,11 +36,11 @@ class MoviesTableSeeder extends Seeder
                         ]);
                     }
                     $res = $client->request('GET', "movie/upcoming", [
-                        'query' => ['api_key' => env('API_KEY', ""),"page" => $i]
+                        'query' => ['api_key' => env('API_KEY', ""),"page" => ++$i]
                     ]);
                     $content = $res->getBody()->getContents();
                     $result = json_decode($content,true);
-                }
+                } while ($i <= $pages);
             }
         } catch (HttpException $ex) {
             Log::debug($ex);

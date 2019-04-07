@@ -1,5 +1,5 @@
 <?php
 
 Route::get('/{any}', function () {
-    return view('post');
+    return view('home');
 })->where('any', '.*');
